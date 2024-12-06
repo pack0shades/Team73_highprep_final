@@ -11,7 +11,8 @@ load_dotenv()
 client= OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
-def guardrails(response):
+# guardrails returns true or false based on the text
+def guardrails(response: str) -> bool:
     guard = Guard().use(
         ToxicLanguage(
             validation_method="sentence",
@@ -22,6 +23,7 @@ def guardrails(response):
     return guard.validate(response).validation_passed
 
 
+# query refinement
 def query_refinment(query: str) -> str:
     response = client.chat.completions.create(
         model="gpt-4o-mini",

@@ -3,6 +3,8 @@ ALLOW_DELEGATION = False
 HOST_NAME = "0.0.0.0"
 GRADIO_PORT = 7860
 FAST_API_PORT = 8001
+SPARSE_PORT = 8766
+DENSE_PORT = 8765
 JINA_URL_RERANKER = "https://api.jina.ai/v1/rerank"
 JINA_RERANKER_MODEL = "jina-reranker-v2-base-multilingual"
 

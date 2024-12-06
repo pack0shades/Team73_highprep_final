@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Creates dynamic agents based on based on the document's content
 def get_dynamic_agents(document: str) -> list:
     tool_chat_history = [
         {

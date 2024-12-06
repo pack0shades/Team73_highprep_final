@@ -1,43 +1,42 @@
 <h1>
-  PRADA (Pathway RAG with Dynamic Agents)
+  Dynamic Agentic RAG
 </h1>
-<div align="center">
-  <img src="./frontend/assets/logo.png" alt="logo" width="400"/>
-</div>
 
-PRADA is an RAG application which leaverages dynamic agent creation to provide answers to complex queries as well harnessing pathways cutting edge vectorstore to live stream data, PRADA architecturaly creates insitu specialist agents based of the source data. It leaverages OpenAI API, utilizing embeddings and Chat Completion endpoints to craft dynamic, intelligent responses, setting a new benchmark in dynamic RAG with live streaming data.
+
+Dynamic Agentic RAG is an application that leverages dynamic agent creation to provide answers to complex queries while harnessing Pathway's cutting-edge vector store for live-streaming data. Architecturally, Dynamic Agentic RAG creates specialist agents on-the-fly based on the source data. It utilizes the OpenAI API, leveraging embeddings and Chat Completion endpoints to craft dynamic, intelligent responses, setting a new benchmark in dynamic RAG with live-streaming data.
 
 ## Use Cases
 
 #### Healthcare: Medical Record Analysis
-- **Purpose**: Automated summarization and diagnosis assistance.  
-- **How**: Extracts key patient data, adapts to new formats, and provides timely summaries, diagnosis suggestions, and treatment insights using the latest medical knowledge.  
+- **Purpose**: Automated summarization and diagnosis assistance 
+- **How**: Extracts key patient data, adapts to new formats, and provides timely summaries, diagnosis suggestions, and treatment insights using the latest medical knowledge 
 
 #### Legal: Contract Review and Compliance
-- **Purpose**: Streamlined legal document review for compliance.  
-- **How**: Analyzes document sections to ensure alignment with evolving laws and jurisdictional requirements.  
+- **Purpose**: Streamlined legal document review for compliance 
+- **How**: Analyzes document sections to ensure alignment with evolving laws and jurisdictional requirements 
 
 #### Finance: Market Data Processing and Risk Assessment
-- **Purpose**: Real-time analysis of market trends and risks.  
-- **How**: Processes live financial data, detects anomalies, and provides actionable insights and predictions for risk management and investment.
+- **Purpose**: Real-time analysis of market trends and risks  
+- **How**: Processes live financial data, detects anomalies, and provides actionable insights and predictions for risk management and investment
 
 ## Key Features
-- **Insitu Dynamic Agents**: PRADA dynamically creates agents in real-time, tailored to the streamed documents. This ensures efficiency and adaptability, even when document content changes significantly.
-- **Real-Time Data streaming**: Seamlessly integrates with Google Drive to stream live data from a specified folder path.
+- **Dynamic Agents**: Dynamic Agentic RAG dynamically creates agents in real-time, tailored to the streamed documents. This ensures efficiency and adaptability, even when document content changes significantly.
+- **Real-Time Data streaming**: Seamless integration with Google Drive to stream live data from a specified folder path.
 - **Web Search**: When responses require additional context, users can utilize a web search feature to fetch real-time results directly from the web.
 - **Fallback strategy**: A secondary API backup ensures system continuity, maintaining reliability even if the primary API fails.
-- **Code Modularity**:  PRADA's modular architecture ensures that all components are independent and reusable, facilitated through Docker for seamless deployment and scalability.  
-- **User-Friendly UI via Gradio**: PRADA leverages a Gradio-powered interface, making navigation intuitive and document analysis straightforward, so users can focus on their tasks without technical overhead.
+- **Modularity**:  Dynamic Agentic RAG's modular architecture ensures that all components are independent and reusable, facilitated through Docker for seamless deployment and scalability.  
+- **User-Friendly UI via Gradio**: Dynamic Agentic RAG leverages a Gradio-powered interface, making navigation intuitive and document analysis straightforward, so users can focus on their tasks without technical overhead.
 
 ## Future Enhancements
-- **Integrating Notion**: Extend PRADA's capabilities to work seamlessly with Notion workspaces. This integration will allow users to retrieve, analyze, and interact with documents and databases stored in Notion for enhanced productivity.
-- **Multi-Modal Integration**: Extend support to handle diverse data types such as images, videos, and audio, allowing PRADA to cater to a broader range of use cases, including multimedia analysis and processing.
-- **Specialised Mathematical Tools**: Equip PRADA with tools for advanced mathematical problem-solving, including symbolic computation, formula generation, and numerical analysis, to cater to fields like engineering and research.
+- **Integrating Notion**: Extend Dynamic Agentic RAG's capabilities to work seamlessly with Notion workspaces. This integration will allow users to retrieve, analyze, and interact with documents and databases stored in Notion for enhanced productivity.
+- **Multi-Modal Integration**: Extend support to handle diverse data types such as images, videos, and audio, allowing Dynamic Agentic RAG to cater to a broader range of use cases, including multimedia analysis and processing.
+- **Specialised Mathematical Tools**: Equip Dynamic Agentic RAG with tools for advanced mathematical problem-solving, including symbolic computation, formula generation, and numerical analysis, to cater to fields like engineering and research.
 
 ## Demo Video
 <div align="center">
   <img src="./frontend/assets/readmedemo.gif" alt="gif" width="400"/>
 </div>
+
 ## Methodology
 - **Data Sources**: As the pipeline is designed to handle and work with dynamic data sources , we are giving the functionality that Google drive folder can serve as the source. 
 
@@ -47,7 +46,7 @@ PRADA is an RAG application which leaverages dynamic agent creation to provide a
 </div>
 
 - **Data Ingestion and Processing**:  
-  Incoming data from Google Drive is seamlessly processed through PRADA's pipeline. The data is then split into smaller, manageable chunks using Pathway's [Unstructured Parser](https://github.com/pathwaycom/pathway/blob/main/python/pathway/xpacks/llm/parsers.py#L77-L230). Updates to the source data are automatically synced with the pipeline, enabling real-time Retrieval-Augmented Generation (RAG).
+  Incoming data from Google Drive is seamlessly processed through Dynamic Agentic RAG's pipeline. The data is then split into smaller, manageable chunks using Pathway's [Unstructured Parser](https://github.com/pathwaycom/pathway/blob/main/python/pathway/xpacks/llm/parsers.py#L77-L230). Updates to the source data are automatically synced with the pipeline, enabling real-time Retrieval-Augmented Generation (RAG).
 - **Guardrails**:  
   Text integrity is verified by [Guardrails](https://github.com/guardrails-ai/guardrails/blob/main/guardrails/guard.py), ensuring the reliability and quality of processed information.  
 
@@ -109,12 +108,12 @@ A JSON file will be saved to your computer. Move it to the folder where your Pat
 - Insert the link in the box provided on interface
 
 #### Upload credentials created for google api console
-- After entering the link you will be prompted to upload the credentials.json file
+- After entering the link you will be prompted to upload the `credentials.json` file
 
 #### Ready to go
 - Wait for documents to process, once the files are uploaded successfully. you can ask your query.
 - Thinking process will be shown on right side of the screen.
-- if you are not satisfied with the response or your current files do not contain the relevant information you can web search once the query is processed. It will automatically handle even if the primary websearch api key fails.
+- If you are not satisfied with the response or your current files do not contain the relevant information you can web search once the query is processed. It will automatically handle even if the primary websearch api key fails.
 
 
 ## Installation
@@ -122,7 +121,7 @@ A JSON file will be saved to your computer. Move it to the folder where your Pat
 ### A. Run with Docker
 
 ### Prerequisites
-  - linux based OS
+  - Linux based OS
 
   - Ensure you have Docker and docker compose both latest version installed on your system before proceeding. Docker compose  will be used to build and run the application in a containerized environment. For installation please refer the offcial documneation of docker [Docket Installation Guide](https://docs.docker.com/compose/install/linux/)
 
@@ -165,7 +164,7 @@ JINA_API_KEY={JINA_API_KEY}
 EXA_API_KEY={EXA_API_KEY}
 GUARDRAILS_API_KEY={GUARDRAILS_API_KEY}
 ```
-### 2. Build docker
+### 2. Build with docker
   ```bash
   # run the following command in terminal
   docker compose up --build

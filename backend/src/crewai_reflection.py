@@ -16,6 +16,7 @@ from .config import (
 from dotenv import load_dotenv
 import openai
 import os
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 load_dotenv()
@@ -65,12 +66,13 @@ def reflection(
                 sanitized_inputs[key] = value
         return sanitized_inputs
 
-    inputs = sanitize_inputs(inputs) # escape curly braces in the inputs
+    inputs = sanitize_inputs(inputs)  # escape curly braces in the inputs
 
     results_inital = initial_crew.kickoff(inputs=inputs)
 
     logger.info(f"initial crew response in reflection-- {results_inital}")
 
+    # critique agent which critiques the responses given by other agents and sends back to them for improving their responses during reflection.
     critique_agent= Agent(
         role= CRITIQUE_AGENT_PROMPT["role"],
         goal= CRITIQUE_AGENT_PROMPT["goal"],
@@ -91,8 +93,9 @@ def reflection(
     )
 
     dynamic_task_list = []
+    # dynamic agents which improve the responses given by other agents
     dynamic_task_description = DYNAMIC_AGENT_TASK["description"].format(que=query, con=context)
-    for i in range(len(agents)):
+    for i in range(len(agents)): # creating tasks for dynamic agents
         dynamic_agent_task = Task(
             description=dynamic_task_description,
             expected_output=DYNAMIC_AGENT_TASK["expected_output"],
@@ -111,8 +114,9 @@ def reflection(
             allow_delegation= ALLOW_DELEGATION,
             llm = MODEL
         )
-    
+
     meta_agent_task_description = META_AGENT_TASK["description"].format(que=query)
+    # final agent which aggregates the responses given by other agents and gives final response of pipeline
     final_agent_task = Task(
             description=meta_agent_task_description,
             expected_output=META_AGENT_TASK["expected_output"],
@@ -123,6 +127,7 @@ def reflection(
     
     logger.info(f"new tasks and final agent formed---")
 
+    # reflection crew
     reflection_crew = Crew(
         agents=[critique_agent,
                 *agents,

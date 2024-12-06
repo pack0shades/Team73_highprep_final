@@ -1,11 +1,9 @@
-# Warning control
 from dotenv import load_dotenv
 from crewai import (
     Agent,
     Task
 )
 import warnings
-warnings.filterwarnings('ignore')
 from crewai import (
     Agent,
     Task
@@ -17,8 +15,11 @@ from .config import (
     MODEL,
 )
 
+warnings.filterwarnings('ignore')
+
 load_dotenv()
-def get_multi_agents():
+def get_multi_agents(): # makes static agent when dynamic agents are not required
+    # extractor agent creation
     extractor_agent = Agent(
         role=EXTRACTOR_AGENT_PROMPT["role"],
         goal=EXTRACTOR_AGENT_PROMPT["goal"],
@@ -28,6 +29,7 @@ def get_multi_agents():
         llm=MODEL
     )
 
+    # extractor task
     extractor_task = Task(
         description=EXTRACTOR_TASK["description"],
         expected_output=EXTRACTOR_TASK["expected_output"],

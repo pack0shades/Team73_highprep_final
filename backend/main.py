@@ -15,7 +15,10 @@ from src.config import (
     QUE_ANS_AGENT_TASK,
     ALLOW_DELEGATION,
     MODEL,
-    LOG_PATH
+    LOG_PATH,
+    HOST_NAME,
+    DENSE_PORT,
+    SPARSE_PORT
 )
 from src.crewai_reflection import reflection
 from src.crewai_multi import get_multi_agents
@@ -38,8 +41,8 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Set up vector retrievers
-vector_retriever_dense = VectorStoreRetriever("0.0.0.0", port=8765)
-vector_retriever_sparse = VectorStoreRetriever("0.0.0.0", port=8766)
+vector_retriever_dense = VectorStoreRetriever(HOST_NAME, port=DENSE_PORT)
+vector_retriever_sparse = VectorStoreRetriever(HOST_NAME, port=SPARSE_PORT)
 vector_retriever_hyprid = VectorStoreRetrieverHybrid(
     vector_retriever_dense,
     vector_retriever_sparse

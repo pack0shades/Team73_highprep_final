@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 JINA_API_KEY = os.getenv("JINA_API_KEY")
-    
+
 
 def jina_reranker(query: str, documents: list[str], topk: int) -> list[str]:
     url = JINA_URL_RERANKER

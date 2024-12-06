@@ -47,7 +47,7 @@ def get_dynamic_agents(document: str) -> list:
         except Exception as e:
             print(f"Unexpected error: {e}")
             return "There was some error parsing the Tool's output"
-  
+
 
     # Extract tool call strings using regular expressions
     tool_call_pattern = r'<tool_call>(.*?)</tool_call>'

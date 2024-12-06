@@ -101,7 +101,7 @@ class ContextualRetrievalSplitter(pw.UDF):
         context = [self._get_chunk_summary(page, chunk) for chunk in page_chunks]
         
         res = [FINAL_CHUNK_CONTEXT_PROMPT.format(chunk_content=chunk, doc_content=cxt, file_name=metadata) 
-               for chunk, cxt in zip(page_chunks, context)]
+            for chunk, cxt in zip(page_chunks, context)]
         
         # logger.debug(f"Page chunks: {res}")
         return res

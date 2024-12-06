@@ -26,7 +26,7 @@ class VectorStoreRetrieverHybrid(object):
 
         for idx, chunk in enumerate(chunks1):
             fusion_scores[chunk["text"]] += (1.0 / (idx + 10))
-                                             
+        
         for idx, chunk in enumerate(chunks2):
             fusion_scores[chunk["text"]] += (1.0 / (idx + 10))
 

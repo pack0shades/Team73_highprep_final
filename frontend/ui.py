@@ -5,7 +5,6 @@ import os
 from config import (
     LOG_FILE,
     HOST_NAME,
-    GRADIO_PORT,
     FAST_API_PORT,
     MODEL,
     WEB_SEARCH_PROMPT,
@@ -125,7 +124,10 @@ class ChatBot:
 
             response = client.chat.completions.create(
                 model=MODEL,
-                messages=WEB_SEARCH_PROMPT.format(query=query, search_results=result)
+                messages=[
+                    WEB_SEARCH_PROMPT[0],
+                    {"role": "user", "content": WEB_SEARCH_PROMPT[1]["content"].format(result=result)}
+                ]
             )
 
             result = response.choices[0].message.content
@@ -162,7 +164,7 @@ class ChatBot:
         for thought in thoughts:
             thinking_text += thought + "\n"
             yield thinking_text    
-    
+
 
 # Define custom CSS
 css = """
@@ -288,7 +290,7 @@ def create_interface():
                                 scale=0.5,
                                 visible=False
                             ) 
-                           
+
                             upload_status = gr.Textbox( 
                                 show_label=False, 
                                 interactive=False,
@@ -362,7 +364,7 @@ def create_interface():
             )
         
         link_upload.submit(fn=make_visible,
-                           outputs=[file_upload])
+                        outputs=[file_upload])
         
         # Web search button handler
         search_btn.click(

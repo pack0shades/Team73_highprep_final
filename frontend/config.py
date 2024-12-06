@@ -6,7 +6,6 @@ MODEL = "gpt-4o-mini"
 
 WEB_SEARCH_PROMPT =[
                     {"role": "system", "content": "You are a helpful AI assistant. Summarize the given search results about user_message"},
-                    {"role": "user", "content": """Search results: {result}\n"""}
-                ]
+                    {"role": "user", "content": """Search results: {result}\n"""}]
 
 JINA_URL = "https://s.jina.ai/"

@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 import openai
 import os
 openai.api_key = os.getenv("OPENAI_API_KEY")
-  
+
 load_dotenv()
 
 def reflection(
@@ -41,8 +41,7 @@ def reflection(
                 ],
 
         tasks=[*agents_task,
-               meta_agent_task
-               ],
+            meta_agent_task],
 
         process=Process.sequential,
         verbose=True,
@@ -130,8 +129,8 @@ def reflection(
                 final_agent],
         
         tasks=[critique_task,
-               dynamic_agent_task,
-               final_agent_task],
+            dynamic_agent_task,
+            final_agent_task],
         
         process=Process.sequential,
         verbose=True,

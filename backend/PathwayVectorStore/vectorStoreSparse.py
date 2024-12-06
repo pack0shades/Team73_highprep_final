@@ -49,7 +49,7 @@ class SparseEmbedder(BaseEmbedder):
         splade_embedding = splade_embedding.tolist()[0]
 
         return np.array(splade_embedding)
- 
+
 
 
 # make sparse vector store server

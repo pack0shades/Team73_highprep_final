@@ -175,8 +175,6 @@ body {
     position: relative;
     height: 100vh;
     width: 100vw;
-    background : url('/Users/nisarg/Downloads/pexels-jon-champaigne-622172690-27681652.jpg') no-repeat center center fixed;
-
 }
 .thinking-box {
     min-height: 400px !important;

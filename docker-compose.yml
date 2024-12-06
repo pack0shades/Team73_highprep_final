@@ -1,0 +1,55 @@
+services:
+
+  gradio:
+    image: gradio_client
+    container_name: gradio
+    volumes:
+      - shared_logs:/app/shared_logs/logs  # Mount volume to the log directory
+    ports:
+      - "7860:7860"
+    build: 
+      context: ./UI
+    environment:
+      - GRADIO_SERVER_PORT=7860
+      - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
+      - EXA_API_KEY=${EXA_API_KEY}
+      - JINA_API_KEY=${JINA_API_KEY}
+      - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
+    networks:
+      - app-network
+    depends_on:
+      - fastapiserver
+
+
+  fastapiserver:
+    image: backend
+    container_name: fastapiserver
+    volumes:
+      - shared_logs:/app/shared_logs/logs  # Mount volume to the log directory
+    ports:
+      - "8001:8001"
+      - "8765:8765"
+      - "8766:8766"
+    environment:
+      - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
+      - JINA_API_KEY=${JINA_API_KEY}
+      - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    build:
+      context: .  # Set build context to current directory
+      args:
+        GUARDRAILS_API_KEY: ${GUARDRAILS_API_KEY}
+        OPENAI_API_KEY: ${OPENAI_API_KEY}
+        JINA_API_KEY: ${JINA_API_KEY}
+        OPENAI_API_KEY_GHAR: ${OPENAI_API_KEY_GHAR}
+          # Correctly pass build argument
+    networks:
+      - app-network
+    # other configurations like environment variables, etc.
+
+
+volumes:
+  shared_logs:  # Declare the shared volume
+
+networks:
+  app-network:

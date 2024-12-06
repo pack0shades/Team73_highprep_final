@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+# make dense vector store server
 def make_dense_vector_store_server(
     source, 
     port: int,
@@ -47,20 +48,20 @@ def make_dense_vector_store_server(
         port=port,
     )
 
-if __name__=="__main__":
+# if __name__=="__main__":
 
-    table = pw.io.gdrive.read(
-        object_id="1PKCELu34EgxIEp-tdZz2wpxAdIXF-e_e",
-        service_user_credentials_file="./uploaded_files/credentials2.json",
-        mode = "streaming",
-        with_metadata = True
-    )
+#     table = pw.io.gdrive.read(
+#         object_id="",
+#         service_user_credentials_file="./uploaded_files/credentials.json",
+#         mode = "streaming",
+#         with_metadata = True
+#     )
 
-    # pw.run()
+#     # pw.run()
 
-    make_dense_vector_store_server(
-        table,
-        port=8765,
-        save_doc_summary=True,
-        save_doc_path="./document_data/document_summary.txt"
-    )
+#     make_dense_vector_store_server(
+#         table,
+#         port=8765,
+#         save_doc_summary=True,
+#         save_doc_path="./document_data/document_summary.txt"
+#     )

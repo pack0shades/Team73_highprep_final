@@ -87,18 +87,8 @@ class VectorStoreClientModified:
         metadata_filter: str | None = None,
         filepath_globpattern: str | None = None,
     ) -> list[dict]:
-        """
-        Perform a query to the vector store and fetch results.
-
-        Args:
-            query:
-            k: number of documents to be returned
-            metadata_filter: optional string representing the metadata filtering query
-                in the JMESPath format. The search will happen only for documents
-                satisfying this filtering.
-            filepath_globpattern: optional glob pattern specifying which documents
-                will be searched for this query.
-        """
+        
+        # Perform a query to the vector store and fetch results on all chunks
 
         data = {"query": query}
         if metadata_filter is not None:
@@ -162,6 +152,7 @@ class VectorStoreClientModified:
         return responses
     
     def get_doc_text(self) -> str:
+        # Fetch the text of the document
         url = self.url + "/v1/get_doc_text"
         response = requests.post(
             url,

@@ -9,7 +9,8 @@ def run_vector_store(
     credential_path: str,
     object_id: str
 )-> None:
-
+    
+    # Read the table from Google Drive
     table = pw.io.gdrive.read(
         object_id=object_id,
         service_user_credentials_file=credential_path,
@@ -17,6 +18,7 @@ def run_vector_store(
         with_metadata = True
     )
 
+    # Start the servers in parallel
     t1 = threading.Thread(
         target=make_dense_vector_store_server,
         args=(table, 8765, True, "./document_data/document_summary.txt")
@@ -78,6 +80,6 @@ def run_vector_store(
 
 if __name__ == "__main__":
     run_vector_store(
-        credential_path="credentials2.json",
-        object_id="1PKCELu34EgxIEp-tdZz2wpxAdIXF-e_e",
+        credential_path="./uploaded_files/credentials2.json",
+        object_id="",
     )

@@ -69,11 +69,13 @@ class ContextualRetrievalSplitter(pw.UDF):
         self.pages_chunk_size = 3000
         self.chunk_size = 1000
 
+        # for splitting the text into pages
         self.page_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.pages_chunk_size,
             chunk_overlap=200
         )
 
+        # for splitting the text into chunks
         self.chunk_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
             chunk_overlap=200
@@ -81,6 +83,7 @@ class ContextualRetrievalSplitter(pw.UDF):
 
     @staticmethod
     def _get_chunk_summary(doc: str, chunk: str) -> str:
+        # Get the context of the chunk
         completion = openai_client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -101,7 +104,7 @@ class ContextualRetrievalSplitter(pw.UDF):
         context = [self._get_chunk_summary(page, chunk) for chunk in page_chunks]
         
         res = [FINAL_CHUNK_CONTEXT_PROMPT.format(chunk_content=chunk, doc_content=cxt, file_name=metadata) 
-            for chunk, cxt in zip(page_chunks, context)]
+            for chunk, cxt in zip(page_chunks, context)]    ## Final chunk context prompt
         
         # logger.debug(f"Page chunks: {res}")
         return res
@@ -126,12 +129,13 @@ class ContextualRetrievalSplitter(pw.UDF):
             txt = data[0]
             metadata = ""
         
-        txt = self._clean_text(txt)
-        pages = self.page_splitter.split_text(txt)
+        txt = self._clean_text(txt)         # Clean the text
+        pages = self.page_splitter.split_text(txt)       # Split the text into pages
 
         chunks = []
 
         with ThreadPoolExecutor() as executor:
+            # Process each page in parallel
             future_to_page = [executor.submit(self.process_page, page, metadata) for page in pages]
 
             chunks_temp = [future.result() for future in tqdm(

@@ -18,6 +18,7 @@ from .config import (
 )
 
 load_dotenv()
+# return static agents
 def get_multi_agents():
     extractor_agent = Agent(
         role=EXTRACTOR_AGENT_PROMPT["role"],

@@ -5,7 +5,6 @@ import os
 from config import (
     LOG_FILE,
     HOST_NAME,
-    GRADIO_PORT,
     FAST_API_PORT,
     MODEL,
     WEB_SEARCH_PROMPT,
@@ -125,7 +124,10 @@ class ChatBot:
 
             response = client.chat.completions.create(
                 model=MODEL,
-                messages=WEB_SEARCH_PROMPT.format(query=query, search_results=result)
+                messages=[
+                    WEB_SEARCH_PROMPT[0],
+                    {"role": "user", "content": WEB_SEARCH_PROMPT[1]["content"].format(result=result)}
+                ]
             )
 
             result = response.choices[0].message.content

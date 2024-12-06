@@ -20,17 +20,13 @@ ENV JINA_API_KEY=${JINA_API_KEY}
 # Install git and other required utilities (optional)
 RUN apt-get update && apt-get install -y git
 
-
 RUN apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn -y
 # RUN apt-get tesseract-ocr-dev
-
-
+        
 RUN apt install libmagic1 libmagic-dev -y
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt-get update && apt-get install libgl1 -y
 RUN apt-get install poppler-utils -y
-
-
 
 RUN pip install uv
 

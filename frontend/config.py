@@ -4,7 +4,7 @@ GRADIO_PORT = 7860
 FAST_API_PORT = 8001
 MODEL = "gpt-4o-mini"
 
-WEB_SEARCH_PROMPT =[
+WEB_SEARCH_PROMPT = [
                     {"role": "system", "content": "You are a helpful AI assistant. Summarize the given search results about user_message"},
                     {"role": "user", "content": """Search results: {result}\n"""}
                 ]

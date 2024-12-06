@@ -647,7 +647,7 @@ pw.io.fs.read('./sample_docs', format='binary', mode='static', with_metadata=Tru
         with_cache: bool = True,
         cache_backend: (
             pw.persistence.Backend | None
-        ) = pw.persistence.Backend.filesystem("./Cache"),
+        ) = pw.persistence.Backend.filesystem("./cache"),
         **kwargs,
     ):
         """

@@ -162,7 +162,7 @@ class ChatBot:
         for thought in thoughts:
             thinking_text += thought + "\n"
             yield thinking_text    
-    
+
 
 # Define custom CSS
 css = """
@@ -290,7 +290,7 @@ def create_interface():
                                 scale=0.5,
                                 visible=False
                             ) 
-                           
+
                             upload_status = gr.Textbox( 
                                 show_label=False, 
                                 interactive=False,
@@ -364,7 +364,7 @@ def create_interface():
             )
         
         link_upload.submit(fn=make_visible,
-                           outputs=[file_upload])
+                        outputs=[file_upload])
         
         # Web search button handler
         search_btn.click(

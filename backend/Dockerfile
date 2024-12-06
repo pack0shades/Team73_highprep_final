@@ -12,10 +12,6 @@ ARG OPENAI_API_KEY
 
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 
-ARG OPENAI_API_KEY_GHAR
-
-ENV OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
-
 ARG JINA_API_KEY
 
 ENV JINA_API_KEY=${JINA_API_KEY}
@@ -53,14 +49,6 @@ RUN uv pip install pdf2image
 RUN uv pip install python-dateutil
 RUN uv pip install unstructured.pytesseract
 RUN uv pip install --upgrade nltk
-
-RUN echo "Your Guardrails token: $GUARDRAILS_API_KEY"
-
-RUN echo "OPENAI_API_KEY: $OPENAI_API_KEY"
-
-RUN echo "OPENAI_API_KEY_GHAR: $OPENAI_API_KEY_GHAR"
-
-RUN echo "JINA_API_KEY: $JINA_API_KEY"
 
 RUN guardrails configure --enable-metrics --enable-remote-inferencing --token $GUARDRAILS_API_KEY
 

@@ -9,7 +9,6 @@ services:
       context: ./frontend  # Set build context to current directory
     environment:
       - GRADIO_SERVER_PORT=7860
-      - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
       - EXA_API_KEY=${EXA_API_KEY}
       - JINA_API_KEY=${JINA_API_KEY}
       - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
@@ -24,7 +23,6 @@ services:
     volumes:
       - shared_logs:/app/shared_logs/logs  # Mount volume to the log directory
     environment:
-      - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
       - JINA_API_KEY=${JINA_API_KEY}
       - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -35,7 +33,6 @@ services:
         GUARDRAILS_API_KEY: ${GUARDRAILS_API_KEY}
         OPENAI_API_KEY: ${OPENAI_API_KEY}
         JINA_API_KEY: ${JINA_API_KEY}
-        OPENAI_API_KEY_GHAR: ${OPENAI_API_KEY_GHAR}
           # Correctly pass build argument
     # other configurations like environment variables, etc.
 

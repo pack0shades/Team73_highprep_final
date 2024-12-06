@@ -35,7 +35,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY_GHAR")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Set up vector retrievers
 vector_retriever_dense = VectorStoreRetriever("0.0.0.0", port=8765)

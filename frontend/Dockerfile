@@ -2,7 +2,6 @@ FROM python:3.11-slim
 
 RUN pip install gradio loguru openai exa_py python-dotenv
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
-ENV OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
 ENV EXA_API_KEY=${EXA_API_KEY}
 ENV JINA_API_KEY=${JINA_API_KEY}
 

@@ -5,8 +5,6 @@ services:
     container_name: gradio
     volumes:
       - shared_logs:/app/shared_logs/logs  # Mount volume to the log directory
-    ports:
-      - "7860:7860"
     build: 
       context: ./UI
     environment:
@@ -25,10 +23,6 @@ services:
     container_name: fastapiserver
     volumes:
       - shared_logs:/app/shared_logs/logs  # Mount volume to the log directory
-    ports:
-      - "8001:8001"
-      - "8765:8765"
-      - "8766:8766"
     environment:
       - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
       - JINA_API_KEY=${JINA_API_KEY}

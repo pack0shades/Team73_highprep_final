@@ -56,6 +56,18 @@ def reflection(
         'con': context
     }
 
+    def sanitize_inputs(inputs: dict) -> dict:
+        sanitized_inputs = {}
+        for key, value in inputs.items():
+            if isinstance(value, str):
+                # Escape any curly braces in the string values
+                sanitized_inputs[key] = value.replace("{", "{{").replace("}", "}}")
+            else:
+                sanitized_inputs[key] = value
+        return sanitized_inputs
+
+    inputs = sanitize_inputs(inputs) # escape curly braces in the inputs
+
     results_inital = initial_crew.kickoff(inputs=inputs)
 
     logger.info(f"initial crew response in reflection-- {results_inital}")

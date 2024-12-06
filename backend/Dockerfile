@@ -78,4 +78,4 @@ EXPOSE 8001
 EXPOSE 8765
 EXPOSE 8766
 
-CMD ["uvicorn", "fast_api_serverPathway:app", "--port", "8001", "--host", "0.0.0.0"]
+CMD ["uvicorn", "fast_api_server:app", "--port", "8001", "--host", "0.0.0.0"]

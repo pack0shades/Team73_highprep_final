@@ -229,6 +229,18 @@ def pipeline(
             'que': query,
             'con': context
         }
+
+        def sanitize_inputs(inputs: dict) -> dict:
+            sanitized_inputs = {}
+            for key, value in inputs.items():
+                if isinstance(value, str):
+                    # Escape any curly braces in the string values
+                    sanitized_inputs[key] = value.replace("{", "{{").replace("}", "}}")
+                else:
+                    sanitized_inputs[key] = value
+            return sanitized_inputs
+
+        inputs = sanitize_inputs(inputs) # escape curly braces in the inputs
         
         response = initial_crew.kickoff(inputs=inputs).raw
         logger.info(f"response without guardrail--{response}\nfor the query:\n{query}")

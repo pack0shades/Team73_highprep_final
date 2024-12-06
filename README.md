@@ -2,26 +2,27 @@
   PRADA (Pathway RAg with Dynamic Agents)
 </h1>
 <div align="center">
-  <img src="./assets/blacklogo.png" alt="logo" width="400"/>
+  <img src="./frontend/assets/logo.png" alt="logo" width="400"/>
 </div>
 
 PRADA is an rag application which leaverages dynamic agent creation to provide answers to complex queries as well harnessing pathways cutting edge vectorstore to live stream data, PRADA architecturaly creates insitu specialist agents based of the source data. It leaverages OpenAI API, utilizing embeddings and Chat Completion endpoints to craft dynamic, intelligent responses, setting a new benchmark in dynamic RAG with live streaming data.
 ## Use Cases
-- ### Financial Analytics and Market Insights
-PRADA empowers analysts and investors by dynamically processing real-time financial data, including stock market trends, corporate earnings, and macroeconomic indicators. By retrieving and synthesizing insights from live knowledge bases, PRADA delivers actionable intelligence tailored to user queries, enabling data-driven decision-making with unparalleled efficiency.
 
-- ### Legal Document Analysis and Compliance Advisory
-In the ever-evolving legal landscape, PRADA provides real-time access to relevant regulations, statutes, and case precedents. By automating compliance analysis and offering advisory insights based on the latest legal developments, PRADA reduces the cognitive load for legal professionals, ensuring accurate and efficient handling of complex legal data.
+#### Healthcare: Medical Record Analysis
+- **Purpose**: Automated summarization and diagnosis assistance.  
+- **How**: Extracts key patient data, adapts to new formats, and provides timely summaries, diagnosis suggestions, and treatment insights using the latest medical knowledge.  
 
-- ### Supply Chain and Logistics Optimization
-For industries dependent on real-time data, PRADA optimizes supply chain operations by analyzing inventory levels, delivery schedules, and demand forecasts. Its dynamic adaptability to global supply chain changes minimizes delays, enhances decision-making, and improves operational efficiency.
+#### Legal: Contract Review and Compliance
+- **Purpose**: Streamlined legal document review for compliance.  
+- **How**: Analyzes document sections to ensure alignment with evolving laws and jurisdictional requirements.  
 
-## Business Impact
-- here
+#### Finance: Market Data Processing and Risk Assessment
+- **Purpose**: Real-time analysis of market trends and risks.  
+- **How**: Processes live financial data, detects anomalies, and provides actionable insights and predictions for risk management and investment.
 
 ## Key Features
 - **Insitu Dynamic Agents**: PRADA dynamically creates agents in real-time, tailored to the streamed documents. This ensures efficiency and adaptability, even when document content changes significantly.
-- **Real-Time Data streaming**: Seamlessly integrates with Google Drive to stream live data from a specified folder path. Users can also manually upload documents (PDFs or DOCs) through the user interface.
+- **Real-Time Data streaming**: Seamlessly integrates with Google Drive to stream live data from a specified folder path.
 - **Web Search**: When responses require additional context, users can utilize a web search feature to fetch real-time results directly from the web.
 - **Fallback strategy**: A secondary API backup ensures system continuity, maintaining reliability even if the primary API fails.
 - **Code Modularity**:  PRADA's modular architecture ensures that all components are independent and reusable, facilitated through Docker for seamless deployment and scalability.  
@@ -33,12 +34,15 @@ For industries dependent on real-time data, PRADA optimizes supply chain operati
 - **Specialised Mathematical Tools**: Equip PRADA with tools for advanced mathematical problem-solving, including symbolic computation, formula generation, and numerical analysis, to cater to fields like engineering and research.
 
 ## Demo Video
-[![IMAGE ALT TEXT](./assets/Demo_thumbnail.png)](http://www.youtube.com/watch?v=Pas0NeLZp6I "PRADA(Pathway RAg with Dynamic Agents)")
-
-## 
-  # PIPELINE HERE
-- **Data Sources**: currently google api krr rhe but if kuchh likhne mila to likh denge
-## Streaming Pipeline  
+<div align="center">
+  <img src="./frontend/assets/readmedemo.gif" alt="gif" width="400"/>
+</div>
+## Methodology
+- **Data Sources**: As the pipeline is designed to handle and work with dynamic data sources , we are giving the functionality that Google drive folder can serve as the source. 
+### Streaming Pipeline 
+  <div align="center">
+  <img src="./frontend/assets/pipeline.png" alt="pipeline" width="400"/>
+</div>
 
 - **Data Ingestion and Processing**:  
   Incoming data from Google Drive is seamlessly processed through PRADA's pipeline. The data is then split into smaller, manageable chunks using Pathway's [Unstructured Parser](https://github.com/pathwaycom/pathway/blob/main/python/pathway/xpacks/llm/parsers.py#L77-L230). Updates to the source data are automatically synced with the pipeline, enabling real-time Retrieval-Augmented Generation (RAG).
@@ -52,7 +56,7 @@ For industries dependent on real-time data, PRADA optimizes supply chain operati
 
   - *Context Creation*:  
      - For each chunk, context is retrieved using an LLM and concatenated with the chunk itself.  
-     - Sparse embeddings are generated using the [Splade Encoder](https://github.com/pinecone-io/pinecone-text/blob/main/pinecone_text/sparse/splade_encoder.py), while dense embeddings are created and stored in [Pathway's Vector Store](https://github.com/pathwaycom/pathway/blob/main/python/pathway/xpacks/llm/vector_store.py#L628-L746).  
+     - Sparse embeddings are generated by inhereting the base class of pathway's embedder and integrating it with splade encoder, while dense embeddings are created and both stored in [Pathway's Vector Store](https://github.com/pathwaycom/pathway/blob/main/python/pathway/xpacks/llm/vector_store.py#L628-L746).  
 
  
 
@@ -101,43 +105,117 @@ For industries dependent on real-time data, PRADA optimizes supply chain operati
   - Go to "Keys", click "Add key" -> "Create new key" -> "JSON"
 A JSON file will be saved to your computer. Move it to the folder where your Pathway script is located and rename it to credentials.json.
 
+#### Insert Google Drive Folder Link
+- Insert the link in the box provided on interface
+
+#### Upload credentials created for google api console
+- After entering the link you will be prompted to upload the credentials.json file
+
+#### Ready to go
+- Wait for documents to process, once the files are uploaded successfully. you can ask your query.
+- Thinking process will be shown on right side of the screen.
+- if you are not satisfied with the response or your current files do not contain the relevant information you can web search once the query is processed. It will automatically handle even if the primary websearch api key fails.
+
 
 ## Installation
 
 ### A. Run with Docker
 
 ### Prerequisites
+  - linux based OS
 
-Ensure you have Docker and docker compose both latest version installed on your system before proceeding. Docker compose  will be used to build and run the application in a containerized environment. For installation please refer the offcial documneation of docker [Docket Installation Guide](https://docs.docker.com/compose/install/linux/)
+  - Ensure you have Docker and docker compose both latest version installed on your system before proceeding. Docker compose  will be used to build and run the application in a containerized environment. For installation please refer the offcial documneation of docker [Docket Installation Guide](https://docs.docker.com/compose/install/linux/)
 
 
-- **JinaAI API Key**: 
-  - Create an [JinaAI](https://jina.ai/) account and generate a new API Key
-  - This key is crucial for searching the query on web through JinaAI.
-- **Exa API Key**: 
-  - Create an [Exa](https://exa.ai/) account and generate a new API Key
-  - This key acts as a backup in case the primary API key for web search fails.
-- **Guardrails API Key**: 
-  - Create an [GuardrailsAI](https://www.guardrailsai.com/) account and generate a new API Key
-  - This key is crucial for searching the query on web through JinaAI.
-- **Google Drive Credentials**:
-    - A json file containing the credentials as mentioned above is uploaded through the UI.
-- **OpenAI API Key**:
-    - Create an [OpenAI](https://openai.com/) account and generate a new API Key: 
-    - To access the OpenAI API, you will need to create an API Key. You can do this by logging into the [OpenAI] (https://openai.com/product) website and navigating to the API Key management page.
+### API Keys Setup
 
+To enable seamless functionality and ensure reliable web query operations, you’ll need to generate API keys for the following services:
+
+1. **JinaAI API Key**
+   - Sign up for a [JinaAI](https://jina.ai/) account.
+   - Generate a new API key from your account dashboard.
+   - This key is essential for executing web search queries via JinaAI.
+
+2. **Exa API Key**
+   - Create an account at [Exa](https://exa.ai/).
+   - Obtain a new API key from your account.
+   - This key serves as a backup in case the primary API (JinaAI) encounters any issues.
+
+3. **Guardrails API Key**
+   - Register for a [GuardrailsAI](https://www.guardrailsai.com/) account.
+   - Generate an API key from the account settings.
+   - This key is a critical requirement for ensuring accurate and secure query operations.
+
+4. **OpenAI API Key**
+   - Create an account at [OpenAI](https://openai.com/).
+   - Navigate to the [API Key management page](https://openai.com/product) after logging in.
+   - Generate a new API key to access OpenAI services seamlessly.
+
+Ensure all keys are securely stored and added to the appropriate environment variables or configuration files for smooth integration with the project.
+
+---
 
 ### 1. Environment Setup
 
-Export the following API keys to the source file 
+Export the following API keys to a source file (e.g., `bashrc`):
 
-   ```bashrc
-   OPENAI_API_KEY={OPENAI_API_KEY}
-   JINA_API_KEY={JINA_API_KEY}
-   EXA_API_KEY={EXA_API_KEY}
-   GUARDRAILS_API_KEY={GUARDRAILS_API_KEY}
-   ```
+```bash
+OPENAI_API_KEY={OPENAI_API_KEY}
+JINA_API_KEY={JINA_API_KEY}
+EXA_API_KEY={EXA_API_KEY}
+GUARDRAILS_API_KEY={GUARDRAILS_API_KEY}
+```
+### 2. Build docker
+  ```bash
+  # run the following command in terminal
+  docker compose up --build
+  # i9f the docker is already built you can run
+  docker compose up
+  ```
+  you can access UI through http://0.0.0.0:7860
 
-This file will be used by Docker to set the environment variables inside the container.
+### 2. Run with UV
+  ```bash
+  # run these command on your terminal
+  apt-get update && apt-get install liblaeptonica-dev\
+  tesseract-ocr libtesseract-dev\
+  python3-pil tesseract-ocr-eng tesseract-ocr-script-latn -y
+  
+  apt install libmagic1 libmagic-dev -y
+  apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
+  apt-get update && apt-get install libgl1 -y
+  apt-get install poppler-utils -y
+  pip install uv
 
- 
+  # make a vitual environment
+  uv venv <path of venv> --python 3.10
+
+  # activate the environment
+  source <path of venv>/bin/acitvate
+
+  uv pip sync ./backend/requirements.txt
+  uv pip install "pymilvus[model]"
+  uv pip install "pathway[xpack-llm-docs]"
+  uv pip install python-magic
+  uv pip install Pillow
+  uv pip install pi-heif
+  uv pip install unstructured-inference
+  uv pip install pdf2image
+  uv pip install python-dateutil
+  uv pip install unstructured.pytesseract
+  uv pip install --upgrade nltk
+  uv pip install gradio loguru openai exa_py python-dotenv
+
+  guardrails configure --enable-metrics --enable-remote-inferencing --token $GUARDRAILS_API_KEY
+
+  guardrails hub install hub://guardrails/regex_match
+
+  guardrails hub install hub://guardrails/toxic_language
+
+  # now in one terminal run backend/fast_api_server.py
+  # in other terminal run frontend/ui.py
+  # now you can access the interface through url http://0.0.0.0:7860
+  ```
+  
+
+  

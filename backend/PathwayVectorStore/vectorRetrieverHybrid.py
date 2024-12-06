@@ -4,14 +4,15 @@ from loguru import logger
 from typing import List
 
 
+# For hybrid retrieval, we can use a simple rank fusion approach to combine the results from two different retrievers.
 class VectorStoreRetrieverHybrid(object):
     def __init__(
         self,
         vector_retriever_1: VectorStoreRetriever,
         vector_retriever_2: VectorStoreRetriever,
     ) -> None:
-        self.vector_retriever_1 = vector_retriever_1
-        self.vector_retriever_2 = vector_retriever_2
+        self.vector_retriever_1 = vector_retriever_1  # dense retriever
+        self.vector_retriever_2 = vector_retriever_2  # sparse retriever
 
     def rank_fusion(
         self,
@@ -19,22 +20,22 @@ class VectorStoreRetrieverHybrid(object):
         top_k: int = 3
     ) -> List[str]:
         
-        chunks1 = self.vector_retriever_1.get_all_chunks(query)
-        chunks2 = self.vector_retriever_2.get_all_chunks(query)
+        chunks1 = self.vector_retriever_1.get_all_chunks(query) # from dense retriever
+        chunks2 = self.vector_retriever_2.get_all_chunks(query) # from sparse retriever
 
         fusion_scores = defaultdict(float)
 
         for idx, chunk in enumerate(chunks1):
-            fusion_scores[chunk["text"]] += (1.0 / (idx + 10))
+            fusion_scores[chunk["text"]] += (1.0 / (idx + 10)) # rank fusion score
         
         for idx, chunk in enumerate(chunks2):
-            fusion_scores[chunk["text"]] += (1.0 / (idx + 10))
+            fusion_scores[chunk["text"]] += (1.0 / (idx + 10)) # rank fusion score
 
         sorted_fusion_scores = sorted(fusion_scores.items(), key=lambda x: x[1], reverse=True)
         retrieved_docs = sorted_fusion_scores[:top_k]
         logger.success(f"Retrieved docs successfully")
         
-        return [doc[0] for doc in retrieved_docs]
+        return [doc[0] for doc in retrieved_docs] # return top_k docs
 
 
 if __name__ == "__main__":

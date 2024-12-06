@@ -574,7 +574,7 @@ pw.io.fs.read('./sample_docs', format='binary', mode='static', with_metadata=Tru
     
     
     @pw.table_transformer
-    def retrieve_query_all_chunks(
+    def retrieve_query_all_chunks(   # return score on al chunks
         self, retrieval_queries: pw.Table[RetrieveQueryAllChunksSchema]
     ) -> pw.Table[QueryResultSchema]:
         knn_index: DataIndex = self._graph["knn_index"]
@@ -616,7 +616,7 @@ pw.io.fs.read('./sample_docs', format='binary', mode='static', with_metadata=Tru
 
     @pw.table_transformer
     def get_document_text(
-        self,
+        self,                   ## get the text of the document
         inp : pw.Table[EmptySchema]
     ) -> pw.Table[getDocumentTextSchema]:
         

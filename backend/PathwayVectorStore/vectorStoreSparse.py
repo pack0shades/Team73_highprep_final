@@ -15,6 +15,8 @@ from .config import (
     SPLADE_MODEL_NAME
 )
 
+
+# make sparse embedder
 class SparseEmbedder(BaseEmbedder):
     def __init__(
         self,
@@ -24,7 +26,7 @@ class SparseEmbedder(BaseEmbedder):
         self.model = sparse.SpladeEmbeddingFunction(
             model_name= SPLADE_MODEL_NAME,
             device= "cpu"
-        )
+        )   # model name is the model name of the splade model
         self.kwargs = call_kwargs
 
     def __wrapped__(self, input: str, **kwargs) -> np.ndarray:
@@ -40,13 +42,17 @@ class SparseEmbedder(BaseEmbedder):
         """  # noqa: E501
         kwargs = {**self.kwargs, **kwargs}
 
+        # make splade embedding
         splade_embedding = self.model.encode_documents([input])
         splade_embedding = splade_embedding.toarray()
+        # make sparse representation to dense vector
         splade_embedding = splade_embedding.tolist()[0]
 
         return np.array(splade_embedding)
 
 
+
+# make sparse vector store server
 def make_sparse_vector_store_server(
     source, 
     port: int,
@@ -54,23 +60,17 @@ def make_sparse_vector_store_server(
     save_doc_path: str = "", 
 ) -> None:
 
-    # table_args = {
-    #     "parsing_algorithm": "pymupdf"
-    # }
-
-    # parser = parsers.OpenParse(table_args=table_args)
     parser = parsers.ParseUnstructured(
         mode='single'
     )
 
     embedder = SparseEmbedder()
-    # splitter = TokenCountSplitter(min_tokens=200, max_tokens=500)
     splitter = ContextualRetrievalSplitter()
 
     vector_server = VectorStoreServerModified(
         source,
         embedder=embedder,
-        splitter=splitter,  # no need to use splitter for with openai embedder
+        splitter=splitter,
         parser=parser,
         save_doc_summary=False,
         save_doc_path="",
@@ -83,20 +83,20 @@ def make_sparse_vector_store_server(
     )
     
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    table = pw.io.gdrive.read(
-        object_id="1PKCELu34EgxIEp-tdZz2wpxAdIXF-e_e",
-        service_user_credentials_file="./credentials2.json",
-        mode = "streaming",
-        with_metadata = True
-    )
+#     table = pw.io.gdrive.read(
+#         object_id="",
+#         service_user_credentials_file="./uploaded_files/credentials.json",
+#         mode = "streaming",
+#         with_metadata = True
+#     )
 
-    # pw.run()
+#     # pw.run()
 
-    make_sparse_vector_store_server(
-        table,
-        port=8766,
-        save_doc_summary=False,
-        save_doc_path=""
-    )
+#     make_sparse_vector_store_server(
+#         table,
+#         port=8766,
+#         save_doc_summary=False,
+#         save_doc_path=""
+#     )

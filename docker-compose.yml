@@ -9,13 +9,13 @@ services:
       - "7860:7860"
     build: 
       context: ./UI
-      network: host
     environment:
       - GRADIO_SERVER_PORT=7860
       - OPENAI_API_KEY_GHAR=${OPENAI_API_KEY_GHAR}
       - EXA_API_KEY=${EXA_API_KEY}
       - JINA_API_KEY=${JINA_API_KEY}
       - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
+    network_mode: host
     depends_on:
       - fastapiserver
 
@@ -34,9 +34,9 @@ services:
       - JINA_API_KEY=${JINA_API_KEY}
       - GUARDRAILS_API_KEY=${GUARDRAILS_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+    network_mode: host
     build:
       context: .  # Set build context to current directory
-      network: host
       args:
         GUARDRAILS_API_KEY: ${GUARDRAILS_API_KEY}
         OPENAI_API_KEY: ${OPENAI_API_KEY}

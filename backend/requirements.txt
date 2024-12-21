@@ -89,7 +89,7 @@ grpc-google-iam-v1==0.13.1
 grpcio==1.68.1
 grpcio-status==1.68.1
 grpcio-tools==1.68.1
-guardrails-ai[api]
+guardrails-ai==0.5.15
 guardrails-api-client
 guardrails-hub-types
 h11==0.14.0
